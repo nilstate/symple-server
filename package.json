@@ -1,24 +1,20 @@
 {
-  "name": "symple",
-  "version": "2.1.2",
-  "description": "Realtime messaging and presence server",
+  "name": "symple-server",
+  "version": "3.0.0",
+  "description": "Symple realtime messaging and presence server",
   "main": "./lib/symple.js",
-  "dependencies": {
-    "@socket.io/redis-adapter": "^8.3.0",
-    "debug": "4.3.4",
-    "notepack.io": "~2.2.0",
-    "socket.io-adapter": "~2.5.2",
-    "uid2": "0.0.3",
-    "redis": "4.6.13",
-    "socket.io": "^4.7.5"
-  },
-  "devDependencies": {
-    "jsdoc-to-markdown": "^7.1.1"
+  "engines": {
+    "node": ">=18"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "docs": "jsdoc2md ./lib/symple.js  --template README.hbs > README.md"
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@socket.io/redis-adapter": "^8.3.0",
+    "debug": "^4.4.0",
+    "dotenv": "^17.2.0",
+    "redis": "^5.8.0",
+    "socket.io": "^4.8.0"
   },
   "repository": {
     "type": "git",
@@ -34,10 +30,10 @@
     "webrtc",
     "chat"
   ],
-  "author": "Kam Low <auscaster@gmail.com> (http://sourcey.com)",
+  "author": "Kam Low <auscaster@gmail.com> (https://sourcey.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sourcey/symple-server/issues"
   },
-  "homepage": "http://sourcey.com/symple"
+  "homepage": "https://sourcey.com/symple"
 }

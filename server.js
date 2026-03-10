@@ -1,23 +1,9 @@
-// include Symple
-var Symple = require('./lib/symple');
+const Symple = require('./lib/symple');
+const { createConfig } = require('./config');
 
-// instantiate the Symple server
-var sy = new Symple();
+const config = createConfig();
+const sy = new Symple(config);
 
-// load a config file
-sy.loadConfig(__dirname + "/symple.json");
-
-// initialize the server
 sy.init();
 
-// access socket.io instance methods if required
-// sy.io.use(function(socket, next) { });
-
-// access HTTP/S server instance methods if required
-// sy.http ...
-
-// access Redis publish/subscribe client instance methods
-// sy.pub ...
-// sy.sub ...
-
-console.log('Symple server listening on port ' + sy.config.port);
+console.log('Symple server listening on port ' + (process.env.PORT || sy.config.port));
