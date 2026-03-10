@@ -52,11 +52,15 @@ function redisUrlFromEnv() {
     return explicit;
   }
 
-  const protocol = process.env.SYMPLE_REDIS_PROTOCOL || 'redis';
-  const host = process.env.SYMPLE_REDIS_HOST || process.env.REDIS_HOST || 'localhost';
-  const port = process.env.SYMPLE_REDIS_PORT || process.env.REDIS_PORT || '6379';
+  // Only build a URL if at least one Redis env var is explicitly set
+  const host = process.env.SYMPLE_REDIS_HOST || process.env.REDIS_HOST;
+  const port = process.env.SYMPLE_REDIS_PORT || process.env.REDIS_PORT;
+  if (!host && !port) {
+    return undefined;
+  }
 
-  return `${protocol}://${host}:${port}`;
+  const protocol = process.env.SYMPLE_REDIS_PROTOCOL || 'redis';
+  return `${protocol}://${host || 'localhost'}:${port || '6379'}`;
 }
 
 function buildCorsConfig() {
