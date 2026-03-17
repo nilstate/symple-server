@@ -96,6 +96,10 @@ Enable debug output with:
 DEBUG=symple:* npm start
 ```
 
+## More Information
+
+For more details, visit [sourcey.com/code/symple](https://sourcey.com/code/symple).
+
 ## License
 
 MIT
