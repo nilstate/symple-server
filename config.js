@@ -5,17 +5,13 @@ dotenv.config();
 const TRUE_VALUES = new Set(['1', 'true', 'yes', 'on']);
 const FALSE_VALUES = new Set(['0', 'false', 'no', 'off']);
 
-const DEFAULT_CORS_ORIGINS = true; // allow all origins by default
-const DEFAULT_CORS_METHODS = ['GET', 'POST'];
-
-function createConfig() {
+function createConfig () {
   const config = {
     port: numberFromEnv(process.env.SYMPLE_PORT, 4500),
     sessionTTL: numberFromEnv(process.env.SYMPLE_SESSION_TTL, -1),
     authentication: booleanFromEnv(process.env.SYMPLE_AUTHENTICATION, false),
     dynamicRooms: booleanFromEnv(process.env.SYMPLE_DYNAMIC_ROOMS, true),
-    redis: redisUrlFromEnv(),
-    cors: buildCorsConfig()
+    redis: redisUrlFromEnv()
   };
 
   const ssl = buildSslConfig();
@@ -26,33 +22,30 @@ function createConfig() {
   return config;
 }
 
-function numberFromEnv(value, defaultValue) {
+function numberFromEnv (value, defaultValue) {
   if (value === undefined || value === null || value === '') {
     return defaultValue;
   }
-
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : defaultValue;
 }
 
-function booleanFromEnv(value, defaultValue) {
+function booleanFromEnv (value, defaultValue) {
   if (value === undefined || value === null || value === '') {
     return defaultValue;
   }
-
   const normalized = value.toString().trim().toLowerCase();
   if (TRUE_VALUES.has(normalized)) return true;
   if (FALSE_VALUES.has(normalized)) return false;
   return defaultValue;
 }
 
-function redisUrlFromEnv() {
+function redisUrlFromEnv () {
   const explicit = process.env.SYMPLE_REDIS_URL || process.env.REDIS_URL;
   if (explicit) {
     return explicit;
   }
 
-  // Only build a URL if at least one Redis env var is explicitly set
   const host = process.env.SYMPLE_REDIS_HOST || process.env.REDIS_HOST;
   const port = process.env.SYMPLE_REDIS_PORT || process.env.REDIS_PORT;
   if (!host && !port) {
@@ -63,59 +56,7 @@ function redisUrlFromEnv() {
   return `${protocol}://${host || 'localhost'}:${port || '6379'}`;
 }
 
-function buildCorsConfig() {
-  const origins = parseCorsOrigins(process.env.SYMPLE_CORS_ORIGINS);
-  const methods = parseCorsMethods(process.env.SYMPLE_CORS_METHODS);
-  const credentials = parseCorsCredentials(process.env.SYMPLE_CORS_CREDENTIALS);
-
-  const cors = {
-    origin: origins,
-    methods
-  };
-
-  if (credentials !== undefined) {
-    cors.credentials = credentials;
-  }
-
-  return cors;
-}
-
-function parseCorsOrigins(value) {
-  if (value === undefined || value === null) {
-    return DEFAULT_CORS_ORIGINS;
-  }
-
-  const trimmed = value.trim();
-  if (trimmed === '' || trimmed === '*' || trimmed.toLowerCase() === 'true') {
-    return true;
-  }
-
-  return trimmed
-    .split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean);
-}
-
-function parseCorsMethods(value) {
-  if (value === undefined || value === null || value.trim() === '') {
-    return [...DEFAULT_CORS_METHODS];
-  }
-
-  return value
-    .split(',')
-    .map((method) => method.trim())
-    .filter(Boolean);
-}
-
-function parseCorsCredentials(value) {
-  if (value === undefined || value === null || value === '') {
-    return undefined;
-  }
-
-  return booleanFromEnv(value, false);
-}
-
-function buildSslConfig() {
+function buildSslConfig () {
   const enabled = booleanFromEnv(process.env.SYMPLE_SSL_ENABLED, false);
   if (!enabled) {
     return undefined;
@@ -129,26 +70,14 @@ function buildSslConfig() {
     return undefined;
   }
 
-  return {
-    enabled: true,
-    key,
-    cert
-  };
+  return { enabled: true, key, cert };
 }
 
 module.exports = {
   createConfig,
-  defaults: {
-    corsOrigins: DEFAULT_CORS_ORIGINS,
-    corsMethods: DEFAULT_CORS_METHODS
-  },
   utils: {
     numberFromEnv,
     booleanFromEnv,
-    parseCorsOrigins,
-    parseCorsMethods,
-    parseCorsCredentials,
-    buildCorsConfig,
     buildSslConfig,
     redisUrlFromEnv
   }

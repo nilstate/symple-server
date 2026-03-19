@@ -1,20 +1,20 @@
 {
   "name": "symple-server",
-  "version": "3.0.0",
-  "description": "Symple realtime messaging and presence server",
+  "version": "4.0.0",
+  "description": "Symple v4 realtime messaging and presence server",
   "main": "./lib/symple.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node test/integration.mjs"
   },
   "dependencies": {
-    "@socket.io/redis-adapter": "^8.3.0",
     "debug": "^4.4.0",
     "dotenv": "^17.2.0",
     "redis": "^5.8.0",
-    "socket.io": "^4.8.0"
+    "ws": "^8.18.0"
   },
   "repository": {
     "type": "git",
