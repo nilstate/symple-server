@@ -4,8 +4,8 @@ Realtime messaging and presence server over native WebSocket.
 
 Part of the Symple ecosystem:
 
-- **[symple-client](https://github.com/sourcey/symple-client)** - JavaScript client (browser & Node.js)
-- **[symple-client-ruby](https://github.com/sourcey/symple-client-ruby)** - Ruby/Rails server-side emitter
+- **[symple-client](https://github.com/nilstate/symple-client)** - JavaScript client (browser & Node.js)
+- **[symple-client-ruby](https://github.com/nilstate/symple-client-ruby)** - Ruby/Rails server-side emitter
 
 ## Features
 
@@ -20,7 +20,7 @@ Part of the Symple ecosystem:
 ## Quick Start
 
 ```bash
-git clone https://github.com/sourcey/symple-server.git
+git clone https://github.com/nilstate/symple-server.git
 cd symple-server
 npm install
 npm start
@@ -50,7 +50,7 @@ All configuration is via environment variables (loaded from `.env` via [dotenv](
 Redis is **optional**. Without it, the server runs in single-instance mode with in-memory state. Set `SYMPLE_REDIS_URL` to enable:
 
 - **Token authentication** - session lookup at `symple:session:<token>`
-- **Server-side emission** - push messages from Ruby/Rails via [symple-client-ruby](https://github.com/sourcey/symple-client-ruby)
+- **Server-side emission** - push messages from Ruby/Rails via [symple-client-ruby](https://github.com/nilstate/symple-client-ruby)
 
 ## Authentication
 
@@ -153,7 +153,7 @@ server.init();
 
 ## C++ Server
 
-A C++ implementation with the same protocol is available in [libsourcey](https://github.com/sourcey/libsourcey/tree/master/src/symple).
+A C++ implementation with the same protocol is available in [libsourcey](https://github.com/nilstate/libsourcey/tree/master/src/symple).
 
 ## Debug Logging
 
@@ -165,7 +165,7 @@ DEBUG=symple:* npm start
 
 ## More Information
 
-For more details, visit [sourcey.com/code/symple](https://sourcey.com/code/symple).
+For more details, visit [0state.com/symple](https://0state.com/symple).
 
 ## License
 
