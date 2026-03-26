@@ -1,6 +1,6 @@
 {
   "name": "symple-server",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Symple v4 realtime messaging and presence server",
   "main": "./lib/symple.js",
   "engines": {
